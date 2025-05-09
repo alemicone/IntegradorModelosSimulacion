@@ -14,7 +14,6 @@ public class Simulator {
         generator.addExponential("Normal traffic", (float) 1 / 15);
         generator.addUniform("Clearance time", 10, 25);
         generator.addNormal("Airstrip wear", 36, 5, 1);
-
         bootstrap.run(generator, servers, end);
     }
 }
