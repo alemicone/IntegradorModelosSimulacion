@@ -10,6 +10,7 @@ import entities.ControlTower;
 public class Analytics {
 
     private int airLandings;
+    private int servers;
     private int wayClearances;
     private int arrivals;
     private int waitQueueMax;
@@ -26,6 +27,25 @@ public class Analytics {
     protected float lastClearance;
 
     public Analytics() {
+        this.servers = 1;
+        this.airLandings = 0;
+        this.wayClearances = 0;
+        this.arrivals = 0;
+        this.waitQueueMax = 0;
+        this.waitQueueMin = 0;
+        this.systemTime = 0;
+        this.systemTimeMax = 0;
+        this.systemTimeMin = 0;
+        this.waitTime = 0;
+        this.waitTimeMax = 0;
+        this.waitTimeMin = 0;
+        this.idleTime = 0;
+        this.idleTimeMax = 0;
+        this.idleTimeMin = 0;
+    }
+
+    public Analytics(int servers) {
+        this.servers = servers;
         this.airLandings = 0;
         this.wayClearances = 0;
         this.arrivals = 0;
@@ -69,10 +89,6 @@ public class Analytics {
                 + "Tiempo minimo de ocio:" + this.idleTimeMin + "\n"
                 + "Tamanio maximo de la cola de espera:" + this.waitQueueMax + "\n"
                 + "Tamanio minimo de la cola de espera:" + this.waitQueueMin);
-    }
-
-    public void arrivalAnalytics(Airstrip server, float eventClock, float lastclearance) {
-
     }
 
     public void endAnalytics(ControlTower tower) {
@@ -241,6 +257,14 @@ public class Analytics {
         if ((waitQueueMin < this.waitQueueMin || this.waitQueueMin == 0) && waitQueueMin != 0) {
             this.waitQueueMin = waitQueueMin;
         }
+    }
+
+    public int getServers() {
+        return servers;
+    }
+
+    public void setServers(int servers) {
+        this.servers = servers;
     }
 
 }

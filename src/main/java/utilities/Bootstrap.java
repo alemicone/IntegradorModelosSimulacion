@@ -8,8 +8,8 @@ import events.Arrival;
 
 public class Bootstrap {
 
-    public void run(Generator generator, int serverQuantity, float end) {
-        Analytics analytic = new Analytics();
+    public Analytics run(Generator generator, int serverQuantity, float end) {
+        Analytics analytic = new Analytics(serverQuantity);
         FutureEventsList fel = new FutureEventsList();
         ControlTower tower = new ControlTower(serverQuantity);
         Event<Plane, Airstrip> e;
@@ -21,6 +21,7 @@ public class Bootstrap {
             e = fel.inminent();
         }
         analytic.endAnalytics(tower);
-        analytic.showResults(end, tower);
+        //analytic.showResults(end, tower);
+        return analytic;
     }
 }
