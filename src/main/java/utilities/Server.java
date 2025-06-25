@@ -1,18 +1,17 @@
 package utilities;
 
-import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Server<T> {
 
-    protected Queue<T> queue = new LinkedList();
+    protected Queue<T> queue;
     protected T entity;
     protected boolean occuped;
     protected float idleTime;
     protected float idleTimeMax;
     protected float idleTimeMin;
     protected int number;
-
+    
     public float getIdleTime() {
         return idleTime;
     }
@@ -65,10 +64,7 @@ public abstract class Server<T> {
         return queue;
     }
 
-    public void addQueue(T entity) {
-        this.queue.add(entity);
-    }
-
+    
     public T getEntity() {
         return entity;
     }

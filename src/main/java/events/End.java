@@ -1,14 +1,17 @@
 package events;
 
+import entities.ControlTower;
 import utilities.Analytics;
 import utilities.Event;
 import utilities.FutureEventsList;
 import utilities.Generator;
 
 public class End extends Event {
+    private final ControlTower tower;
 
-    public End(float clock) {
+    public End(float clock, ControlTower tower) {
         super(null, null, 0, clock);
+        this.tower = tower;
     }
 
     @Override
@@ -18,5 +21,7 @@ public class End extends Event {
 
     @Override
     public void analytics(Analytics analytics) {
+    analytics.endAnalytics(tower);
+    //analytics.showResults(clock, tower);
     }
 }

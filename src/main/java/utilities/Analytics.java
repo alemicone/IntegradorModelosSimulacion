@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package utilities;
 
 import entities.Airstrip;
 import entities.ControlTower;
+import java.util.HashMap;
 
 public class Analytics {
 
@@ -25,24 +22,8 @@ public class Analytics {
     protected float idleTimeMax;
     protected float idleTimeMin;
     protected float lastClearance;
-
-    public Analytics() {
-        this.servers = 1;
-        this.airLandings = 0;
-        this.wayClearances = 0;
-        this.arrivals = 0;
-        this.waitQueueMax = 0;
-        this.waitQueueMin = 0;
-        this.systemTime = 0;
-        this.systemTimeMax = 0;
-        this.systemTimeMin = 0;
-        this.waitTime = 0;
-        this.waitTimeMax = 0;
-        this.waitTimeMin = 0;
-        this.idleTime = 0;
-        this.idleTimeMax = 0;
-        this.idleTimeMin = 0;
-    }
+    protected HashMap<Integer,Float> durabilities;
+    protected HashMap<Integer,Float> serversIdleTime;
 
     public Analytics(int servers) {
         this.servers = servers;
@@ -60,6 +41,8 @@ public class Analytics {
         this.idleTime = 0;
         this.idleTimeMax = 0;
         this.idleTimeMin = 0;
+        this.durabilities = new HashMap();
+        this.serversIdleTime = new HashMap();
     }
 
     public void showResults(float end, ControlTower tower) {
@@ -102,6 +85,8 @@ public class Analytics {
             this.increaseIdleTime(server.getIdleTime());
             this.setIdleTimeMax(server.getIdleTimeMax());
             this.setIdleTimeMin(server.getIdleTimeMin());
+            this.durabilities.put(server.getNumber(), server.getDurability());
+            this.serversIdleTime.put(server.getNumber(), server.getIdleTime());
         }
     }
 
@@ -265,6 +250,14 @@ public class Analytics {
 
     public void setServers(int servers) {
         this.servers = servers;
+    }
+
+    public HashMap<Integer, Float> getDurabilities() {
+        return durabilities;
+    }
+
+    public HashMap<Integer, Float> getServersIdleTime() {
+        return serversIdleTime;
     }
 
 }

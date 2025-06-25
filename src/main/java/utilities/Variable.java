@@ -29,16 +29,16 @@ public class Variable<T extends Number> {
         for (T value : values) {
             total += value.floatValue();
         }
-        this.average = total / n;
+        this.average = (float)total / n;
     }
 
     public void CalculateError() {
         float total = 0f;
         for (T value : values) {
             total += Math.pow(value.floatValue() - this.average, 2);
-
         }
-        this.error = (float) Math.sqrt((float) 1 / (n - 1) * total);
+        this.error = (float) Math.sqrt((float)total/(n - 1));
+
     }
 
     public String intervalo() {
