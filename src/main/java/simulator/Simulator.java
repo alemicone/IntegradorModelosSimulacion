@@ -15,10 +15,10 @@ import utilities.Variable;
 public class Simulator {
 
     static final float endTime = 40320f;
-    static final int servers = 3;
+    static final int servers = 6;
     static final int nexperiments = 50;
-    static final String selectionPolitic = "Less queue";
-    static final boolean serversHaveQueue = true;
+    static final String selectionPolitic = "Cycle";
+    static final boolean serversHaveQueue = false;
 
     public static void results(ArrayList<Analytics> experiments) {
 
@@ -45,7 +45,7 @@ public class Simulator {
         maxSystem = new Variable<>("Maximum system time", nExperiments, (Analytics experiment) -> {
             return experiment.getSystemTimeMax();
         });
-        averageSystem = new Variable<>("System time %", nExperiments, (Analytics experiment) -> {
+        averageSystem = new Variable<>("System time", nExperiments, (Analytics experiment) -> {
             return experiment.getSystemTime() / experiment.getWayClearances();
         });
         minWait = new Variable<>("Minimum wait time", nExperiments, (Analytics experiment) -> {
@@ -63,7 +63,7 @@ public class Simulator {
         maxIdle = new Variable<>("Maximum idle time", nExperiments, (Analytics experiment) -> {
             return experiment.getIdleTimeMax();
         });
-        totalIdle = new Variable<>("Idle time %", nExperiments, (Analytics experiment) -> {
+        totalIdle = new Variable<>("Total idle time %", nExperiments, (Analytics experiment) -> {
             return experiment.getIdleTime() / endTime * 100;
         });
         for (int i = 1; i <= servers; i++) {
@@ -92,25 +92,22 @@ public class Simulator {
             variable.CalculateAverage();
             variable.CalculateError();
             System.out.println(variable.getName() + variable.intervalo());
-            System.out.println("\n");
         }
         for (Variable v : durabilities) {
             v.CalculateAverage();
             v.CalculateError();
             System.out.println(v.getName() + v.intervalo());
-            System.out.println("\n");
         }
         for (Variable v : serversIdleTime) {
             v.CalculateAverage();
             v.CalculateError();
             System.out.println(v.getName() + v.intervalo());
-            System.out.println("\n");
         }
     }
 
     public static void main(String[] args) {
         Bootstrap bootstrap = new Bootstrap();
-        Generator generator = new Generator();
+        Generator generator = new Generator(12345678);
         ControlTower tower;
         Analytics analytic;
         Event start;

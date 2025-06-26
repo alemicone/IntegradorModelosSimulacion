@@ -19,7 +19,7 @@ public class ControlTower extends ServerSelectionPolitics<Airstrip> {
             int v1 = a1.isOccuped() ? a1.getQueue().size() + 1 : a1.getQueue().size();
             int v2 = a2.isOccuped() ? a2.getQueue().size() + 1 : a2.getQueue().size();
             int result = Integer.compare(v1, v2);
-            return (result) != 0 ? result : a1.getNumber() - a2.getNumber();
+            return result != 0 ? result : a1.getNumber() - a2.getNumber();
         }
     };
     private Comparator firstReleaseComparator = new Comparator<Airstrip>() {
@@ -103,8 +103,7 @@ public class ControlTower extends ServerSelectionPolitics<Airstrip> {
             this.servers.sort(comparator);
             return servers.getFirst();
         } catch (Exception e) {
-            this.lastIndex++;
-            return servers.get((lastIndex + 1) % this.serversSize);
+            return servers.get((++lastIndex) % this.serversSize);
         }
     }
 

@@ -7,6 +7,7 @@ import utilities.FutureEventsList;
 import utilities.Generator;
 
 public class End extends Event {
+
     private final ControlTower tower;
 
     public End(float clock, ControlTower tower) {
@@ -21,7 +22,7 @@ public class End extends Event {
 
     @Override
     public void analytics(Analytics analytics) {
-    analytics.endAnalytics(tower);
-    //analytics.showResults(clock, tower);
+        analytics.endAnalytics(tower, this.clock);
+        //analytics.showResults(clock, tower);
     }
 }

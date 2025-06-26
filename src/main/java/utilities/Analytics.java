@@ -22,8 +22,8 @@ public class Analytics {
     protected float idleTimeMax;
     protected float idleTimeMin;
     protected float lastClearance;
-    protected HashMap<Integer,Float> durabilities;
-    protected HashMap<Integer,Float> serversIdleTime;
+    protected HashMap<Integer, Float> durabilities;
+    protected HashMap<Integer, Float> serversIdleTime;
 
     public Analytics(int servers) {
         this.servers = servers;
@@ -74,13 +74,15 @@ public class Analytics {
                 + "Tamanio minimo de la cola de espera:" + this.waitQueueMin);
     }
 
-    public void endAnalytics(ControlTower tower) {
+    public void endAnalytics(ControlTower tower, float endTime) {
         for (Airstrip server : tower.getServers()) {
             if (server.isOccuped()) {
                 this.increaseAirlanding(1);
-                this.increaseWaitTime(server.getEntity().getLandingClock() - server.getEntity().getArrivalClock());
-                this.setWaitTimeMax(server.getEntity().getLandingClock() - server.getEntity().getArrivalClock());
-                this.setWaitTimeMin(server.getEntity().getLandingClock() - server.getEntity().getArrivalClock());
+                this.increaseWaitTime(server.getEntity().getWaitTime());
+                this.setWaitTimeMax(server.getEntity().getWaitTime());
+                this.setWaitTimeMin(server.getEntity().getWaitTime());
+            } else {
+                server.increaseIdleTime(endTime - server.getLastClearance());
             }
             this.increaseIdleTime(server.getIdleTime());
             this.setIdleTimeMax(server.getIdleTimeMax());

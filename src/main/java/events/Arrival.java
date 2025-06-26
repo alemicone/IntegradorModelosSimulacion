@@ -57,7 +57,7 @@ public class Arrival extends Event<Plane, Airstrip> {
     public void analytics(Analytics analytics) {
         float idletime;
         analytics.increaseArrival(1);
-        if (!this.tower.serversHaveQueue() || (this.tower.serversHaveQueue() && this.server.getQueue().isEmpty())) {
+        if (!this.tower.serversHaveQueue() && this.tower.getQueue().isEmpty() || (this.tower.serversHaveQueue() && this.server.getQueue().isEmpty())) {
             idletime = this.clock - this.server.getLastClearance();
             this.server.increaseIdleTime(idletime);
             this.server.setIdleTimeMax(idletime);
